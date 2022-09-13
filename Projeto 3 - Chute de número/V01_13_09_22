@@ -1,0 +1,47 @@
+# Nesta aplicação o usuário deve chutar um número e o sistema irá comparar com o valor aleatório até o usuário acertar
+# São fornecidas dicas para saber se o usuário está próximo ou não de acertar o número.
+import random
+
+
+class Chute:
+    def __init__(self):
+        self.minimo = 1
+        self.maximo = 100
+        self.mensagem_inicial = f"Chute um número entre {self.minimo} a {self.maximo}:"
+        self.numero_secreto = random.randint(self.minimo, self.maximo)
+
+    def iniciar(self):
+        try:
+            numero_chute = int(input(self.mensagem_inicial))
+
+            if numero_chute == self.numero_secreto:
+                print(f"VOCÊ ACERTOU! O NÚMERO SECRETO ERA {numero_chute}!")
+                print(f"-" * 5 + "PARABÉNS!!!" + "-" * 5)
+                self.jogar_novamente()
+            elif self.numero_secreto > numero_chute > self.minimo:
+                print("O número secreto é maior! Chute outro número:")
+                self.iniciar()
+            elif self.numero_secreto < numero_chute < self.maximo:
+                print("O número secreto é menor! Chute outro número:")
+                self.iniciar()
+            else:
+                print(f"Você deve digitar um número entre {self.minimo} e {self.maximo}! Por favor digite novamente:")
+                self.iniciar()
+
+        except:
+            print(f"Erro ao digitar! Você deve chutar um número entre {self.minimo} e {self.maximo}:")
+            self.iniciar()
+
+    def jogar_novamente(self):
+        reiniciar = input("Deseja jogar novamente? (S/N)").lower()
+        if reiniciar == "s" or reiniciar == "si" or reiniciar == "sim":
+            Chute().__init__()
+            Chute().iniciar()
+        elif reiniciar == "n" or reiniciar == "nao" or reiniciar == "não":
+            print("Obrigado por jogar!")
+        else:
+            print("Você deve escolher Sim ou Não. Por favor tente novamente")
+            self.jogar_novamente()
+
+
+Chute().iniciar()
